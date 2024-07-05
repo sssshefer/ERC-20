@@ -37,6 +37,7 @@ contract ERC20 is IERC20{
         require(msg.sender == OWNER, "You are not an owner");
         _;
     }
+
     function name() external view returns(string memory){
         return NAME;
     }
@@ -96,7 +97,8 @@ contract ERC20 is IERC20{
 
     function burn(address from, uint amount) public onlyOwner enoughTokens(from, amount){
         _beforeTokenTransfer(from, address(0), amount);
-        balances(from) -= amount;
+        balances[from] -= amount;
+        totalTokens -= amount;
     }
 
 
@@ -106,4 +108,56 @@ contract ERC20 is IERC20{
         uint amount
     ) internal virtual{}
 
+}
+
+contract ShefToken is ERC20{
+    constructor(address shop ) ERC20("ShefToken", "SHEF", 18, 20, shop){
+
+    }
+}
+
+contract ShefShop is ShefToken{
+    IERC20 public token;
+    address payable public owner;
+    event Bought(uint _amount, address indexed _buyer);
+    event Sold(uint _amount, address indexed _seller);
+
+    constructor(){
+        token = new ShefToken(address(this));
+        owner = payable(msg.sender);
+    }
+
+    modifier onlyOwner(){
+        require(msg.sender == OWNER, "You are not an owner");
+        _;
+    }
+
+    function sell(uint _amountToSell) external{
+        require(
+            _amountToSell > 0 &&
+            token.balanceOf(msg.sender) >= _amountToSell,
+            "incorrect amount"
+        );
+        uint allowance = token.checkAllowance(msg.sender, address(this));
+        require(allowance >= _amountToSell, "check allowance");
+
+        token.transferFrom(msg.sender, address(this), _amountToSell);
+
+        payable(msg.sender).transfer(_amountToSell)
+        emit Sold(_amountToSell, msg.sender);
+    }
+
+    receive() external payable{
+        uint tokensToBuy = msg.value; //1 wei = 1 token
+        require(tokensToBuy > 0, "Not enough tokens");
+
+        require(tokenBalance() >= tokensToBuy, "Not enough tokens");
+
+        token.transfer(msg.sender, tokensToBuy);
+        emit Bought(tokensToBuy, msg.sender);
+    }
+
+    function tokenBalance() public view returns(uint){
+        token.balanceOf(address(this))
+    }
 }
