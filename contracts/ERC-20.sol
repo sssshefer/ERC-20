@@ -46,7 +46,7 @@ contract ERC20 is IERC20{
         return SYMBOL;
     }
 
-    function decimals() external pure returns(uint){
+    function decimals() external view returns(uint){
         return DECIMALS;//1 token = 1 wei
     }
 
@@ -64,17 +64,17 @@ contract ERC20 is IERC20{
         balances[to] += amount;
         emit Transfer(msg.sender, to, amount);
     }
-
+    
     function checkAllowance (address owner,address  spender) external view returns(uint){
-        return allowances[spender][owner];
+        return allowances[owner][spender];
     }
 
     function approve(address spender, uint amount) public{
         _approve(msg.sender, spender, amount);
     }
 
-    function _approve (address sender,address spender, uint amount, ) internal virtual{
-        allowances[msg.sender][spender] = amount;
+    function _approve (address sender,address spender, uint amount) internal virtual{
+        allowances[sender][spender] = amount;
         emit Approve(sender, spender, amount);
     }
 
@@ -116,7 +116,7 @@ contract ShefToken is ERC20{
     }
 }
 
-contract ShefShop is ShefToken{
+contract ShefShop{
     IERC20 public token;
     address payable public owner;
     event Bought(uint _amount, address indexed _buyer);
@@ -128,7 +128,7 @@ contract ShefShop is ShefToken{
     }
 
     modifier onlyOwner(){
-        require(msg.sender == OWNER, "You are not an owner");
+        require(msg.sender == owner, "You are not an owner");
         _;
     }
 
@@ -143,7 +143,7 @@ contract ShefShop is ShefToken{
 
         token.transferFrom(msg.sender, address(this), _amountToSell);
 
-        payable(msg.sender).transfer(_amountToSell)
+        payable(msg.sender).transfer(_amountToSell);
         emit Sold(_amountToSell, msg.sender);
     }
 
@@ -158,6 +158,6 @@ contract ShefShop is ShefToken{
     }
 
     function tokenBalance() public view returns(uint){
-        token.balanceOf(address(this))
+        return token.balanceOf(address(this));
     }
 }
