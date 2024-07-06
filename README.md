@@ -54,7 +54,7 @@ To run the project locally, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/sssshefer/erc-20.git
+    git clone https://github.com/sssshefer/ERC-20.git
     cd sheftoken
     ```
 
