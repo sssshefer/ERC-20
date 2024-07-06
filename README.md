@@ -1,6 +1,6 @@
 # ![logo-no-background](https://github.com/sssshefer/erc-20/assets/63253440/03cb43e9-d02a-453f-8740-9a60add8ff90)
 
-# Shef token - ERC-20 Implementation 
+# Shef token. ERC-20 Implementation 
 
 The Shef token Project is a simple implementation of an ERC20 token using Solidity
 
