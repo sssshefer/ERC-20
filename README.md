@@ -2,12 +2,12 @@
 
 # Shef token. ERC-20 Implementation 
 
-The Shef token Project is a simple implementation of an ERC20 token using Solidity
+The Shef token Project is a simple implementation of an ERC-20 token using Solidity
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [Theory Notes](#theory-notes)
-  - [ERC20 Standard](#erc20-standard)
+  - [ERC-20 Standard](#erc-20-standard)
   - [Hardhat](#hardhat)
 - [Features and Functionality](#features-and-functionality)
 - [Implementation](#implementation)
@@ -23,14 +23,14 @@ The project includes a smart contract for the token (ShefToken) and a shop (Shef
 
 ## Theory Notes
 
-### ERC20 Standard
-ERC20 is a standard for tokens on the Ethereum blockchain. It defines a set of functions that all compliant tokens must implement, ensuring interoperability between various tokens and platforms
+### ERC-20 Standard
+ERC-20 is a standard for tokens on the Ethereum blockchain. It defines a set of functions that all compliant tokens must implement, ensuring interoperability between various tokens and platforms
 
 ### Hardhat
 Hardhat is a development environment to compile, deploy, test, and debug your Ethereum software. It helps developers manage and automate the recurring tasks that are part of the smart contract development workflow
 
 ## Features and Functionality
-- **Token Creation**: The ShefToken smart contract allows for the creation and management of a new ERC20 token
+- **Token Creation**: The ShefToken smart contract allows for the creation and management of a new ERC-20 token
 - **Minting and Burning**: The contract owner can mint new tokens and burn existing ones
 - **Transfers and Allowances**: Users can transfer tokens to others and set allowances for spending
 - **Shop Integration**: The ShefShop contract allows users to buy tokens with Ether and sell tokens for Ether
@@ -39,7 +39,7 @@ Hardhat is a development environment to compile, deploy, test, and debug your Et
 
 ### Smart Contracts
 The project includes two main contracts:
-1. **ERC20**: Implements the standard ERC20 functions and additional features like minting and burning.
+1. **ERC-20**: Implements the standard ERC-20 functions and additional features like minting and burning.
 2. **ShefShop**: Facilitates the buying and selling of ShefTokens.
 
 ### Tests
